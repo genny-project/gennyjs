@@ -1,0 +1,8 @@
+{
+  "adapter": "timer",
+  "subscribe": [
+    { "name": "TIMER_SCHEDULE", "options": {} }
+  ],
+  "publish": [],
+  "config": {}
+}
