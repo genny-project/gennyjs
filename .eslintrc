@@ -7,6 +7,7 @@
     "class-methods-use-this": "off",
     "new-cap": "off",
     "space-in-parens": ["error", "always", { "exceptions": ["{}", "()", "empty"] }],
+    "no-new": "off"
   },
   "env": {
     "browser": true,

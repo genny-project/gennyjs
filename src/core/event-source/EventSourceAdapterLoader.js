@@ -1,9 +1,11 @@
 import EventSourceException from './EventSourceException';
+import { ModuleLogger } from '../';
 
 /* The EventSourceAdapterLoader class registers and loads event source adapters */
 class EventSourceAdapterLoader {
   constructor() {
     this.adapters = {};
+    this.log = new ModuleLogger( 'EventSourceAdapterLoader' );
   }
 
   /* Returns the adapter with the provided name */
@@ -30,6 +32,9 @@ class EventSourceAdapterLoader {
 
     /* Register the adapter under the provided name */
     this.adapters[name] = adapter;
+
+    /* Log that we have registered the adapter */
+    this.log.debug( `Registered ${adapter.constructor.name} as ${name}` );
   }
 }
 
