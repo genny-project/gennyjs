@@ -36,28 +36,32 @@ class Logger {
   /* Logs a DEBUG level message */
   debug( message, object ) {
     if ( this.level >= LogLevel.DEBUG ) {
-      object ? console.debug( message, object ) : console.debug( message );
+      // eslint-disable-next-line
+      object ? console.debug(message, object) : console.debug(message);
     }
   }
 
   /* Logs a INFO level message */
   info( message, object ) {
     if ( this.level >= LogLevel.INFO ) {
-      object ? console.info( message, object ) : console.info( message );
+      // eslint-disable-next-line
+      object ? console.info(message, object) : console.info(message);
     }
   }
 
   /* Logs a WARNING level message */
   warning( message, object ) {
     if ( this.level >= LogLevel.WARNING ) {
-      object ? console.warn( message, object ) : console.warn( message );
+      // eslint-disable-next-line
+      object ? console.warn(message, object) : console.warn(message);
     }
   }
 
   /* Logs a ERROR level message */
   error( message, object ) {
     if ( this.level >= LogLevel.ERROR ) {
-      object ? console.error( message, object ) : console.error( message );
+      // eslint-disable-next-line
+      object ? console.error(message, object) : console.error(message);
     }
   }
 }

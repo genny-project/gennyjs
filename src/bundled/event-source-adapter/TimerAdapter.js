@@ -1,16 +1,12 @@
 import { EventSourceAdapter, EventBus, Event, EventType } from '../../core';
 
 class TimerAdapter extends EventSourceAdapter {
-  constructor( config ) {
-    super( config );
-  }
-
   onEvent( name, event ) {
-    switch( name ) {
+    switch ( name ) {
       case 'TIMER_SCHEDULE':
         return this.onTimerScheduleEvent( event );
       default:
-        return;
+        return null;
     }
   }
 
@@ -20,11 +16,11 @@ class TimerAdapter extends EventSourceAdapter {
       if ( repeat ) {
         setInterval(() => {
           this.onTriggered( event );
-        }, delay);
+        }, delay );
       } else {
         setTimeout(() => {
           this.onTriggered( event );
-        }, delay);
+        }, delay );
       }
     }
   }

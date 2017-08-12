@@ -23,8 +23,8 @@ class Workflow {
     const defaultConfig = {
       active: true,
       trigger: {},
-      actions: []
-    }
+      actions: [],
+    };
 
     /* Combine the provided config with the default config and store it */
     this.config = {
@@ -45,7 +45,7 @@ class Workflow {
     }
 
     /* Create a subscription based on the trigger */
-    this.triggerSubscription = new Subscription( trigger.name, trigger, event => {
+    this.triggerSubscription = new Subscription( trigger.name, trigger, () => {
       this.runActions();
     });
 
@@ -61,15 +61,15 @@ class Workflow {
     this.log.debug( 'Running workflow' );
 
     /* Run all the actions */
-    actions.forEach(action => {
+    actions.forEach(( action ) => {
       this.runAction( action );
     });
   }
 
   runAction( action ) {
-    const event = new Event(action.event);
+    const event = new Event( action.event );
     if ( action.response ) {
-      event.setResponseHandler( data => {
+      event.setResponseHandler(() => {
         this.runAction( action.response );
       });
     }

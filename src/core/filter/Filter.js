@@ -12,9 +12,9 @@ class Filter {
     const filterKeys = Object.keys( filter );
 
     /* Loop through all the keys in the filter if see if any match the event */
-    filterKeys.forEach( k => {
+    filterKeys.forEach(( k ) => {
       /* Now loop through all the event keys and see if we can match them */
-      eventKeys.forEach( e => {
+      eventKeys.forEach(( e ) => {
         /* Create a regex expression to test against */
         const keyFilter = new RegExp( `^${k}$` );
 

@@ -1,37 +1,14 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true,
-            "experimentalObjectRestSpread": true
-        }
-    },
-    "env": {
-        "es6": true,
-        "browser": true,
-        "node": true
-    },
-    "rules": {
-        "quotes": 0,
-        "no-console": 1,
-        "no-debugger": 1,
-        "no-var": 1,
-        "semi": [
-            1,
-            "always"
-        ],
-        "no-trailing-spaces": 0,
-        "eol-last": 0,
-        "no-unused-vars": 0,
-        "no-underscore-dangle": 0,
-        "no-alert": 0,
-        "no-lone-blocks": 0,
-        "jsx-quotes": 1
-    }
+  "extends": "airbnb",
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "class-methods-use-this": "off",
+    "new-cap": "off",
+    "space-in-parens": ["error", "always", { "exceptions": ["{}", "()", "empty"] }],
+  },
+  "env": {
+    "browser": true,
+  }
 }

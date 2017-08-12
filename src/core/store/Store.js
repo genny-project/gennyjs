@@ -15,24 +15,24 @@ class Store {
       persistent: false,
       autoSave: false,
       autoSaveTime: 15000,
-    }
+    };
 
     /* Combine the default options with the options passed in */
     this.options = {
       ...defaultOptions,
-      ...options
+      ...options,
     };
 
     /* Create the data store with the specified name, loading from local storage if needed */
     this.db = ( localStorage.getItem( `STORE_${this.name}` )) ? JSON.parse( localStorage.getItem( `STORE_${this.name}` )) : this.options.initialState;
 
     /* Define internal events */
-    EventBus.defineEvent([
+    EventBus.defineEvent( [
       `STORE_CREATE_${this.name}`,
       `STORE_INSERT_${this.name}`,
       `STORE_SAVE_${this.name}`,
-      `STORE_SAVED_${this.name}`
-    ]);
+      `STORE_SAVED_${this.name}`,
+    ] );
 
     /* Create an event */
     const creationEvent = new Event({
@@ -46,14 +46,14 @@ class Store {
     /* Check whether autosave is enabled */
     if ( this.options.autoSave && this.options.persistent ) {
       /* Create an autosave timer */
-      setInterval( () => {
+      setInterval(() => {
         this.log.info( 'Autosaving' );
         this.save();
       }, this.options.autoSaveTime );
     }
 
     /* Create a new subscription to any save events for this store */
-    new Subscription( `STORE_SAVE_${this.name}`, {}, () => {
+    this.subscription = new Subscription( `STORE_SAVE_${this.name}`, {}, () => {
       /* Save the store */
       this.save();
     });
@@ -63,7 +63,7 @@ class Store {
     /* Update the store */
     this.db = {
       ...this.db,
-      ...data
+      ...data,
     };
 
     /* Create an insert event */
@@ -77,7 +77,7 @@ class Store {
     insertEvent.publish();
   }
 
-  get( key, value ) {
+  get( key ) {
     return this.db[key];
   }
 

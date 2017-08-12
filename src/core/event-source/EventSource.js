@@ -20,11 +20,11 @@ class EventSource {
     this.adapterInstance = new this.adapter( config );
 
     /* Once the adapter is loaded define the events */
-    this.config.subscribe.forEach( e => {
+    this.config.subscribe.forEach(( e ) => {
       EventBus.defineEvent( e.name );
     });
 
-    this.config.publish.forEach( e => {
+    this.config.publish.forEach(( e ) => {
       EventBus.defineEvent( e.name );
     });
 
@@ -32,10 +32,10 @@ class EventSource {
     this.subscriptions = [];
 
     /* Now that the events have been defined let's subscribe to them */
-    this.config.subscribe.forEach( e => {
-      const subscription = new Subscription(e.name, e.options, event => {
+    this.config.subscribe.forEach(( e ) => {
+      const subscription = new Subscription( e.name, e.options, ( event ) => {
         /* Pass the event through to the adapter */
-        this.adapterInstance.onEvent( e.mapTo ? e.mapTo : event.getName(), event )
+        this.adapterInstance.onEvent( e.mapTo ? e.mapTo : event.getName(), event );
       });
 
       /* Add the subscription to the list of subscriptions */

@@ -1,5 +1,6 @@
 /* Import other event classes */
 import EventBus from './EventBus';
+import EventBusException from './EventBusException';
 import { Filter } from '../';
 
 class Subscription {
@@ -26,13 +27,13 @@ class Subscription {
     };
 
     /* Merge the options with the default options */
-    options = {
+    const mergedOptions = {
       ...defaultOptions,
       ...options,
     };
 
     /* Store the options as well as define initial values */
-    this.options = options;
+    this.options = mergedOptions;
     this.name = name;
     this.handler = handler;
     this.eventsReceived = 0;
@@ -46,7 +47,7 @@ class Subscription {
 
   onEvent( event ) {
     if ( !this.filter.process( event.getData())) {
-      return;
+      return false;
     }
 
     /* Send the event to the handler */
@@ -55,12 +56,10 @@ class Subscription {
     /**
      * Increment the events received and check if we have received the
      * desired amount */
-    this.eventsReceived++;
+    this.eventsReceived = this.eventsReceived + 1;
 
-    if ( this.options.maxEvents != -1 && this.eventsReceived >= this.options.maxEvents ) {
-      /* Destroy the subscription */
-      return true;
-    }
+    /* Destroy the subscription if required */
+    return this.options.maxEvents !== -1 && this.eventsReceived >= this.options.maxEvents;
   }
 }
 

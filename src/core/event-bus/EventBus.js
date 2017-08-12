@@ -33,7 +33,8 @@ class EventBus {
    * event names are then both added to our internal list of event names and
    * added to the EventEmitter
    */
-  defineEvent( event ) {
+  defineEvent( ev ) {
+    let event = ev;
     /* Throw an exception if no event was supplied */
     if ( !event ) {
       throw new EventBusException( 'An event must be supplied' );
@@ -48,7 +49,7 @@ class EventBus {
     const defined = [];
 
     /* Loop through the passed in event names */
-    event.forEach( e => {
+    event.forEach(( e ) => {
       /* Make sure we haven't already defined this event */
       if ( this.events.indexOf( e ) < 0 ) {
         this.events.push( e );
@@ -64,7 +65,8 @@ class EventBus {
   }
 
   /* The publish function publishes the supplied event on the EventBus */
-  publish( event ) {
+  publish( ev ) {
+    const event = ev;
     /* Check that an event was provided and that is of the correct type */
     if ( !event || !( event instanceof Event )) {
       throw new EventBusException( 'An event must be supplied' );

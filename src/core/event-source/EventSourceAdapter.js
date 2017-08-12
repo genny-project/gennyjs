@@ -10,7 +10,7 @@ class EventSourceAdapter {
     }
   }
 
-  onEvent( event ) {}
+  onEvent() {}
 }
 
 export default EventSourceAdapter;

@@ -1,8 +1,0 @@
-{
-  "adapter": "alert",
-  "subscribe": [
-    { "name": "ALERT", "options": {} }
-  ],
-  "publish": [],
-  "config": {}
-}

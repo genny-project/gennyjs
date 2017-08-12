@@ -7,7 +7,7 @@ import { ModuleLogger } from '../logger';
 const log = new ModuleLogger( 'Event' );
 
 class Event {
-  constructor( opts = {} ) {
+  constructor( opts = {}) {
     /* Define the default options for an event */
     const defaultOpts = {
       name: '',
@@ -15,16 +15,16 @@ class Event {
       type: EventType.REQ,
       maxResponses: -1,
       globalResponse: false,
-    }
+    };
 
     /* Merge the opts with the default options */
-    opts = {
+    const mergedOpts = {
       ...defaultOpts,
-      ...opts
+      ...opts,
     };
 
     /* Set the options and other initial values */
-    this.options = opts;
+    this.options = mergedOpts;
     this.responsesReceived = 0;
     this.published = false;
     this.responseHandler = null;
@@ -56,7 +56,7 @@ class Event {
   /* Sets the response handler for the event */
   setResponseHandler( handler, filter ) {
     /* Log a warning if we are setting a handler on a non REQRES event */
-    if ( this.options.type != EventType.REQRES ) {
+    if ( this.options.type !== EventType.REQRES ) {
       log.warning( 'A response handler has been set on a non REQRES event' );
     }
 
@@ -67,7 +67,7 @@ class Event {
 
     /* Check to see if a filter was defined */
     if ( filter ) {
-      this.responseHandler = data => {
+      this.responseHandler = ( data ) => {
         if ( filter.process( data )) {
           handler( data );
         }
@@ -89,12 +89,12 @@ class Event {
     }
 
     /* Check that responses are allowed to this type of event */
-    if ( type != EventType.REQRES ) {
+    if ( type !== EventType.REQRES ) {
       throw new EventBusException( 'You cannot respond to an event that is not a REQRES event' );
     }
 
     /* Drop the response if we have exceeded the maximum number of responses */
-    if ( maxResponses != -1 && responsesReceived >= maxResponses ) {
+    if ( maxResponses !== -1 && responsesReceived >= maxResponses ) {
       return;
     }
 
@@ -106,7 +106,7 @@ class Event {
       /* Create a new event */
       const responseEvent = new Event({
         name: `${name}_RESPONSE`,
-        data
+        data,
       });
 
       /* Publish the event */
@@ -122,7 +122,7 @@ class Event {
     }
 
     /* Increment responses received */
-    this.responsesReceived++;
+    this.responsesReceived = this.responsesReceived + 1;
   }
 }
 
