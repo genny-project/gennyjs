@@ -1,7 +1,8 @@
 /* Import other classes */
 import WorkflowException from './WorkflowException';
-import { Subscription, Event } from '../event-bus';
+import { Subscription } from '../event-bus';
 import { ModuleLogger } from '../logger';
+import Action from './Action';
 
 class Workflow {
   constructor( config ) {
@@ -67,14 +68,7 @@ class Workflow {
   }
 
   runAction( action ) {
-    const event = new Event( action.event );
-    if ( action.response ) {
-      event.setResponseHandler(() => {
-        this.runAction( action.response );
-      });
-    }
-
-    event.publish();
+    new Action( action ).run();
   }
 }
 

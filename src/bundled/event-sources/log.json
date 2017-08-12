@@ -1,0 +1,8 @@
+{
+  "adapter": "log",
+  "subscribe": [
+    { "name": "LOG", "options": {} }
+  ],
+  "publish": [],
+  "config": {}
+}
