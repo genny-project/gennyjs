@@ -1,3 +1,8 @@
+/* Source: https://gist.github.com/jasonrhodes/2321581 */
+const getDescendantValue = ( obj, path ) => (
+  path.split( '.' ).reduce(( acc, part ) => acc && acc[part], obj )
+);
+
 class Filter {
   constructor( filter ) {
     this.filter = filter;
@@ -15,13 +20,10 @@ class Filter {
     filterKeys.forEach(( k ) => {
       /* Now loop through all the event keys and see if we can match them */
       eventKeys.forEach(( e ) => {
-        /* Create a regex expression to test against */
-        const keyFilter = new RegExp( `^${k}$` );
-
         /* Check to see if the event key matches the filter */
-        if ( keyFilter.test( e )) {
+        if ( k === e ) {
           /* Now check if the values match */
-          const eventValue = data[e];
+          const eventValue = getDescendantValue( data, k );
           const filterValue = filter[k];
 
           /* Create a regex expression from the filter value to test against */
