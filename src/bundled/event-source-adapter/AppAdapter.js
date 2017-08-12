@@ -39,6 +39,7 @@ class AppAdapter extends EventSourceAdapter {
         protocol: window.location.protocol,
       },
       userAgent: navigator.userAgent,
+      cookies: document.cookie.split( '; ' ).map(( c ) => { const s = c.split( '=' ); return { key: s[0], value: s[1] }; }).reduce(( a, b ) => Object.assign({ [b.key]: b.value }, a ), {}),
     };
   }
 }
