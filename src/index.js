@@ -30,12 +30,16 @@ class GennyJS {
     EventSourceAdapterLoader.register( 'alert', AlertAdapter );
     EventSourceAdapterLoader.register( 'log', LogAdapter );
     EventSourceAdapterLoader.register( 'app', AppAdapter );
+  }
 
+  start() {
     /* Load the bundled event sources */
     this.eventSources.push( new EventSource( AlertEventSource ));
     this.eventSources.push( new EventSource( TimerEventSource ));
     this.eventSources.push( new EventSource( AppEventSource ));
     this.eventSources.push( new EventSource( LogEventSource ));
+
+    this.log.info( 'GennyJS started' );
   }
 }
 

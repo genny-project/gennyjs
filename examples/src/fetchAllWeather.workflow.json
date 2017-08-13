@@ -1,0 +1,42 @@
+{
+  "id": "fetchAllWeather",
+  "active": true,
+  "trigger": {
+    "name": "FETCH_ALL_WEATHER"
+  },
+  "actions": [
+    {
+      "type": "event",
+      "event": {
+        "name": "WEATHER_FETCH",
+        "type": 1,
+        "data": {
+          "method": "get",
+          "path": "data/2.5/weather?q=Melbourne, Australia&appid=690660b930904f0cee1975853d5a2375"
+        }
+      }
+    },
+    {
+      "type": "event",
+      "event": {
+        "name": "WEATHER_FETCH",
+        "type": 1,
+        "data": {
+          "method": "get",
+          "path": "data/2.5/weather?q=Sydney, Australia&appid=690660b930904f0cee1975853d5a2375"
+        }
+      }
+    },
+    {
+      "type": "event",
+      "event": {
+        "name": "WEATHER_FETCH",
+        "type": 1,
+        "data": {
+          "method": "get",
+          "path": "data/2.5/weather?q=Brisbane, Australia&appid=690660b930904f0cee1975853d5a2375"
+        }
+      }
+    }
+  ]
+}

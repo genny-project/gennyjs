@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EventSourceAdapter } from '../../core';
+import { EventSourceAdapter, EventType, Event } from '../../core';
 
 class HttpAdapter extends EventSourceAdapter {
   onEvent( name, event ) {
@@ -18,9 +18,27 @@ class HttpAdapter extends EventSourceAdapter {
       baseURL: this.config.config.baseURL,
       url: path,
     }).then(( response ) => {
-      event.respond( response );
+      if ( event.getType() === EventType.REQRES ) {
+        event.respond( response );
+      }
+
+      if ( event.getType() === EventType.REQ ) {
+        new Event({
+          name: this.config.config.responseEvent || 'HTTP_RESPONSE',
+          data: response,
+        }).publish();
+      }
     }).catch(( response ) => {
-      event.respond( response );
+      if ( event.getType() === EventType.REQRES ) {
+        event.respond( response );
+      }
+
+      if ( event.getType() === EventType.REQ ) {
+        new Event({
+          name: this.config.config.errorEvent || 'HTTP_ERROR',
+          data: response,
+        }).publish();
+      }
     });
   }
 }

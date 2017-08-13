@@ -2,9 +2,9 @@
 import { EventBus, Event, EventType, ModuleLogger, Subscription } from '../';
 
 class Store {
-  constructor( name, options ) {
+  constructor( options ) {
     /* Standardize the name */
-    this.name = name.toUpperCase();
+    this.name = options.name.toUpperCase();
 
     /* Create an internal logger */
     this.log = new ModuleLogger( `STORE_${this.name}` );
@@ -29,7 +29,7 @@ class Store {
     /* Define internal events */
     EventBus.defineEvent( [
       `STORE_CREATE_${this.name}`,
-      `STORE_INSERT_${this.name}`,
+      `STORE_UPDATE_${this.name}`,
       `STORE_SAVE_${this.name}`,
       `STORE_SAVED_${this.name}`,
     ] );
@@ -61,14 +61,11 @@ class Store {
 
   set( data ) {
     /* Update the store */
-    this.db = {
-      ...this.db,
-      ...data,
-    };
+    this.db = data;
 
-    /* Create an insert event */
+    /* Create an update event */
     const insertEvent = new Event({
-      name: `STORE_INSERT_${this.name}`,
+      name: `STORE_UPDATE_${this.name}`,
       type: EventType.REQ,
       data,
     });
