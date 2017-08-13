@@ -1,5 +1,7 @@
 /* Import other classes */
+import Mustache from 'mustache';
 import WorkflowException from './WorkflowException';
+import GennyJS from '../../GennyJS';
 import { Subscription } from '../event-bus';
 import { ModuleLogger } from '../logger';
 import Action from './Action';
@@ -25,6 +27,7 @@ class Workflow {
       active: true,
       trigger: {},
       actions: [],
+      store: null,
     };
 
     /* Combine the provided config with the default config and store it */
@@ -32,6 +35,11 @@ class Workflow {
       ...defaultConfig,
       ...config,
     };
+
+    /* Inject the store if needed */
+    if ( this.config.store ) {
+      this.config.store = GennyJS.stores[this.config.store.toUpperCase()];
+    }
 
     const { id, active, trigger } = this.config;
 
@@ -46,8 +54,8 @@ class Workflow {
     }
 
     /* Create a subscription based on the trigger */
-    this.triggerSubscription = new Subscription( trigger.name, trigger, () => {
-      this.runActions();
+    this.triggerSubscription = new Subscription( trigger.name, trigger, ( event ) => {
+      this.runActions( event );
     });
 
     /* Create a logger */
@@ -57,18 +65,36 @@ class Workflow {
     this.log.debug( 'Loaded workflow' );
   }
 
-  runActions() {
+  runActions( event ) {
     const { actions } = this.config;
     this.log.debug( 'Running workflow' );
 
     /* Run all the actions */
     actions.forEach(( action ) => {
-      this.runAction( action );
+      this.runAction( action, event );
     });
   }
 
-  runAction( action ) {
-    new Action( action ).run();
+  runAction( action, event ) {
+    /* Inject the context */
+    const context = {
+      event: event.getData(),
+      store: this.config.store ? this.config.store : [],
+    };
+
+    /* We don't want to add handlebars to the response so store the response beforehand */
+    const originalResponse = action.response;
+
+    const contextedAction = JSON.parse( Mustache.render( JSON.stringify( action ), context ));
+
+    /* Add the original response back in */
+    contextedAction.response = originalResponse;
+
+    /* Run the action */
+    new Action( contextedAction, {
+      originalEvent: context.event,
+      store: context.store,
+    }).run();
   }
 }
 

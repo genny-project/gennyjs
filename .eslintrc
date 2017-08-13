@@ -9,6 +9,7 @@
     "space-in-parens": ["error", "always", { "exceptions": ["{}", "()", "empty"] }],
     "no-new": "off",
     "arrow-body-style": "off",
+    "max-len": "off",
   },
   "env": {
     "browser": true,

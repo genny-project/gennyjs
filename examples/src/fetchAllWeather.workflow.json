@@ -8,33 +8,45 @@
     {
       "type": "event",
       "event": {
-        "name": "WEATHER_FETCH",
-        "type": 1,
+        "name": "LOG",
         "data": {
-          "method": "get",
-          "path": "data/2.5/weather?q=Melbourne, Australia&appid=690660b930904f0cee1975853d5a2375"
+          "message": "Fetching the weather"
         }
       }
     },
     {
       "type": "event",
       "event": {
-        "name": "WEATHER_FETCH",
-        "type": 1,
+        "name": "FETCH_WEATHER",
         "data": {
-          "method": "get",
-          "path": "data/2.5/weather?q=Sydney, Australia&appid=690660b930904f0cee1975853d5a2375"
+          "location": "Melbourne"
         }
       }
     },
     {
       "type": "event",
       "event": {
-        "name": "WEATHER_FETCH",
-        "type": 1,
+        "name": "FETCH_WEATHER",
         "data": {
-          "method": "get",
-          "path": "data/2.5/weather?q=Brisbane, Australia&appid=690660b930904f0cee1975853d5a2375"
+          "location": "Sydney"
+        }
+      }
+    },
+    {
+      "type": "event",
+      "event": {
+        "name": "FETCH_WEATHER",
+        "data": {
+          "location": "Brisbane"
+        }
+      }
+    },
+    {
+      "type": "event",
+      "event": {
+        "name": "FETCH_WEATHER",
+        "data": {
+          "location": "Adelaide"
         }
       }
     }

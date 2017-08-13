@@ -1,14 +1,16 @@
 import GennyJS, { EventBus, Logger, LogLevel, Workflow, Store, Reducer, EventSource } from '../../dist/';
 import initWorkflow from './init.workflow';
+import fetchWeatherWorkflow from './fetchWeather.workflow';
 import fetchAllWeatherWorkflow from './fetchAllWeather.workflow';
+import logWeather from './logWeather.workflow';
 import customEvents from './events';
 
 /* Set log level */
-Logger.setLevel( LogLevel.DEBUG );
+Logger.setLevel( LogLevel.INFO );
 
 /* Create a store and a reducer */
 const weatherStore = new Store({ name: 'weather' });
-window.weatherStore = weatherStore;
+GennyJS.registerStore( weatherStore );
 
 new Reducer({
   store: weatherStore,
@@ -19,7 +21,7 @@ new Reducer({
     const data = event.getData();
     return {
       ...prev,
-      [data.data.name.toLowerCase()]: data.data,
+      [data.data.name.toLowerCase()]: data.data.main.temp,
     };
   },
 });
@@ -31,7 +33,7 @@ GennyJS.init();
 new EventSource({
   adapter: 'http',
   subscribe: [
-    { name: 'WEATHER_FETCH', mapTo: 'HTTP_REQUEST', options: {} },
+    { name: 'WEATHER_API_FETCH', mapTo: 'HTTP_REQUEST', options: {} },
   ],
   publish: [],
   config: {
@@ -47,5 +49,9 @@ EventBus.defineEvent( customEvents );
 /* Load workflows */
 new Workflow( initWorkflow );
 new Workflow( fetchAllWeatherWorkflow );
+new Workflow( fetchWeatherWorkflow );
+new Workflow( logWeather );
 
 GennyJS.start();
+
+window.GennyJS = GennyJS;

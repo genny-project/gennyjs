@@ -1,8 +1,10 @@
+import Mustache from 'mustache';
 import { Event } from '../';
 
 class Action {
-  constructor( options ) {
+  constructor( options, context ) {
     this.options = options;
+    this.context = context;
   }
 
   getType() {
@@ -11,17 +13,31 @@ class Action {
 
   run() {
     if ( this.getType() === 'event' ) {
-      const event = new Event( this.options.event );
+      /* Inject the context and the store */
+      const contextedEvent = JSON.parse( Mustache.render( JSON.stringify( this.options.event ), {
+        ...this.context,
+        store: this.context.store && this.context.store.getAll ? this.context.store.getAll() : {},
+      }));
+      const event = new Event( contextedEvent );
+
       if ( this.options.response ) {
         if ( this.options.response.length ) {
-          event.setResponseHandler(() => {
+          event.setResponseHandler(( data ) => {
             this.options.response.forEach(( r ) => {
-              new Action( r ).run();
+              new Action( r, {
+                ...this.context,
+                store: this.context.store,
+                event: data,
+              }).run();
             });
           });
         } else {
-          event.setResponseHandler(() => {
-            new Action( this.options.response ).run();
+          event.setResponseHandler(( data ) => {
+            new Action( this.options.response, {
+              ...this.context,
+              store: this.context.store,
+              event: data,
+            }).run();
           });
         }
       }
