@@ -10,6 +10,8 @@ class GennyJS {
     this.eventSources = [];
     this.log = new ModuleLogger( 'GennyJS' );
     this.stores = {};
+    this.reducers = [];
+    this.workflows = {};
   }
 
   /* Returns the current version of the GennyJS library */
@@ -31,6 +33,18 @@ class GennyJS {
 
   registerStore( store ) {
     this.stores[store.name] = store;
+  }
+
+  registerReducer( reducer ) {
+    this.reducers.push( reducer );
+  }
+
+  registerEventSource( source ) {
+    this.eventSources.push( source );
+  }
+
+  registerWorkflow( workflow ) {
+    this.workflows[workflow.id] = workflow;
   }
 
   start() {

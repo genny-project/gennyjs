@@ -4,3 +4,4 @@ export { EventSourceAdapter, EventSourceAdapterLoader, EventSource } from './eve
 export { default as Filter } from './filter';
 export { Store, Reducer } from './store';
 export { Workflow } from './workflow';
+export { default as ConfigLoader } from './config';

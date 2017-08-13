@@ -10,6 +10,7 @@
     "no-new": "off",
     "arrow-body-style": "off",
     "max-len": "off",
+    "no-eval": "off",
   },
   "env": {
     "browser": true,
