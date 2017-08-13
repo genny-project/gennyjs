@@ -1,0 +1,12 @@
+{
+  "adapter": "keycloak",
+  "subscribe": [
+    { "name": "KEYCLOAK_LOAD", "options": {} },
+    { "name": "KEYCLOAK_INIT", "options": {} },
+    { "name": "KEYCLOAK_LOGIN", "options": {} },
+    { "name": "KEYCLOAK_LOGOUT", "options": {} },
+    { "name": "KEYCLOAK_REGISTER", "options": {} }
+  ],
+  "publish": [],
+  "config": {}
+}

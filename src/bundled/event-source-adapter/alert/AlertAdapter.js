@@ -1,4 +1,4 @@
-import { EventSourceAdapter } from '../../core';
+import { EventSourceAdapter } from '../../../core';
 
 class AlertAdapter extends EventSourceAdapter {
   onEvent( name, event ) {

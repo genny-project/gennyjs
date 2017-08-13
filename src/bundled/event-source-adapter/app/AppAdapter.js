@@ -1,5 +1,5 @@
-import GennyJS from '../../';
-import { Event, EventType, EventBus, EventSourceAdapter } from '../../core';
+import GennyJS from '../../../';
+import { Event, EventType, EventBus, EventSourceAdapter } from '../../../core';
 
 class AppAdapter extends EventSourceAdapter {
   constructor( config ) {

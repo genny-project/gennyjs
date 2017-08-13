@@ -1,6 +1,6 @@
 import {
-  AppAdapter, AlertAdapter, HttpAdapter, TimerAdapter, LogAdapter,
-  AppEventSource, TimerEventSource, AlertEventSource, LogEventSource,
+  AppAdapter, AlertAdapter, HttpAdapter, TimerAdapter, LogAdapter, KeycloakAdapter,
+  AppEventSource, TimerEventSource, AlertEventSource, LogEventSource, KeycloakEventSource,
 } from './bundled';
 import { EventSourceAdapterLoader, EventSource, ModuleLogger } from './core';
 
@@ -28,6 +28,7 @@ class GennyJS {
     EventSourceAdapterLoader.register( 'http', HttpAdapter );
     EventSourceAdapterLoader.register( 'alert', AlertAdapter );
     EventSourceAdapterLoader.register( 'log', LogAdapter );
+    EventSourceAdapterLoader.register( 'keycloak', KeycloakAdapter );
     EventSourceAdapterLoader.register( 'app', AppAdapter );
   }
 
@@ -52,6 +53,7 @@ class GennyJS {
     this.eventSources.push( new EventSource( AlertEventSource ));
     this.eventSources.push( new EventSource( TimerEventSource ));
     this.eventSources.push( new EventSource( LogEventSource ));
+    this.eventSources.push( new EventSource( KeycloakEventSource ));
 
     /* Always make sure app event source is last */
     this.eventSources.push( new EventSource( AppEventSource ));

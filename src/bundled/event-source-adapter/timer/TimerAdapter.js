@@ -1,4 +1,4 @@
-import { EventSourceAdapter, EventBus, Event, EventType } from '../../core';
+import { EventSourceAdapter, EventBus, Event, EventType } from '../../../core';
 
 class TimerAdapter extends EventSourceAdapter {
   onEvent( name, event ) {

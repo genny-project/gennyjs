@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EventSourceAdapter, EventType, Event } from '../../core';
+import { EventSourceAdapter, EventType, Event } from '../../../core';
 
 class HttpAdapter extends EventSourceAdapter {
   onEvent( name, event ) {

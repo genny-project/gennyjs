@@ -79,7 +79,7 @@ class Workflow {
     /* Inject the context */
     const context = {
       event: event.getData(),
-      store: this.config.store ? this.config.store : [],
+      store: this.config.store ? this.config.store.getAll() : [],
     };
 
     /* We don't want to add handlebars to the response so store the response beforehand */
