@@ -93,7 +93,7 @@ class Workflow {
     /* Run the action */
     new Action( contextedAction, {
       originalEvent: context.event,
-      store: context.store,
+      store: this.config.store,
     }).run();
   }
 }

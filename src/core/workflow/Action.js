@@ -18,6 +18,7 @@ class Action {
         ...this.context,
         store: this.context.store && this.context.store.getAll ? this.context.store.getAll() : {},
       }));
+
       const event = new Event( contextedEvent );
 
       if ( this.options.response ) {
