@@ -7,7 +7,7 @@ Logger.setLevel( LogLevel.INFO );
 GennyJS.init();
 
 /* Load the config from the gennyjs config server */
-ConfigLoader.load( 'http://localhost:43669/configuration/weather-example', () => {
+ConfigLoader.load( 'http://localhost:43669/configuration/auth-example', () => {
   GennyJS.start();
 });
 
