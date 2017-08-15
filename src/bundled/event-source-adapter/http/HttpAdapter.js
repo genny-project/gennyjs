@@ -12,9 +12,10 @@ class HttpAdapter extends EventSourceAdapter {
   }
 
   onRequest( event ) {
-    const { path, method } = event.getData();
+    const { path, method, data } = event.getData();
     axios({
       method,
+      data,
       baseURL: this.config.config.baseURL,
       url: path,
     }).then(( response ) => {
