@@ -1,6 +1,6 @@
 {
   "name": "@genny-project/gennyjs",
-  "version": "1.0.03",
+  "version": "1.0.04",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf dist && mkdir dist",
