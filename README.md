@@ -1,4 +1,5 @@
 # Gennyjs
 
-``` npm install genny-project/gennyjs ````
-```` npm start ```
+` npm install genny-project/gennyjs ``
+
+` npm start`
