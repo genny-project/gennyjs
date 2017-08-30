@@ -31,7 +31,9 @@ class KeycloakAdapter extends EventSourceAdapter {
   }
 
   onInit() {
+    console.log( 'Init' );
     KeycloakAuth.init(( result ) => {
+      console.log( result );
       if ( result ) {
         const authEvent = new Event({
           name: 'KEYCLOAK_AUTH_COMPLETE',

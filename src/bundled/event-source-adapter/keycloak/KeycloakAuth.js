@@ -1,4 +1,4 @@
-import keycloak from './keycloak.min.js';
+import keycloak from 'keycloak-js';
 
 /**
  * This class links the offical Keycloak javascript connector with React / Redux
